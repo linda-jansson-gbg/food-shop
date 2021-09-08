@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Menu />
-    <Products />
+    <Products v-bind:products="products" />
     <Detail />
     <Cart />
     <Payment />
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       products: [],
+      cart: [],
     };
   },
   methods: {
