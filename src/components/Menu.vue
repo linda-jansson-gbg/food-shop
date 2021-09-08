@@ -3,13 +3,23 @@
     <img src="@/assets/logo.svg" alt="Logo" />
     <div class="cart">
       <i class="material-icons">shopping_cart</i>
-      <div class="cart-count">0</div>
+      <div class="cart-count">{{ cartCount }}</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    cart: Array,
+  },
+  computed: {
+    cartCount() {
+      if (!this.cart?.length) return 0;
+      return this.cart.length;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
