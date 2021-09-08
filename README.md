@@ -1,24 +1,15 @@
-# webshop
+# Food Shop
 
 ## Project setup
-```
+
+```bash
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+```bash
+# Terminal 1 (frontend)
 npm run serve
-```
 
-### Compiles and minifies for production
+# Terminal 2 (backend)
+npm run api
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
