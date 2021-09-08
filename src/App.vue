@@ -1,28 +1,61 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Menu />
+    <Products />
+    <Detail />
+    <Cart />
+    <Payment />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Menu from './components/Menu.vue';
+import Products from './components/Products.vue';
+import Detail from './components/Detail.vue';
+import Cart from './components/Cart.vue';
+import Payment from './components/Payment.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld,
+    Menu,
+    Products,
+    Detail,
+    Cart,
+    Payment,
+  },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  methods: {
+    async getData() {
+      const response = await fetch('/api');
+      const data = await response.json();
+      if (data.success) {
+        this.products = data.data;
+      }
+    },
+  },
+  mounted() {
+    this.getData();
   },
 };
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 1rem;
 }
 </style>
