@@ -1,9 +1,19 @@
 <template>
-  <div></div>
+  <div>
+    <ul>
+      <li v-for="item in cart" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    cart: Array,
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
