@@ -29,4 +29,12 @@ describe('Cart.vue', () => {
     const list = wrapper.findAll('li').length;
     expect(list).toEqual(2);
   });
+  it('should display the price of the product', () => {
+    const price = wrapper.find('span.price');
+    expect(price.text()).toBe('89 kr');
+  });
+  it('should display the total cost of the products', () => {
+    const total = wrapper.find('span.total');
+    expect(total.text()).toBe('1068 kr'); // 89*12
+  });
 });
