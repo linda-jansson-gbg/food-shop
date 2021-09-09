@@ -20,6 +20,7 @@ article {
   align-items: center;
   i {
     cursor: pointer;
+    user-select: none;
   }
 }
 div.count {

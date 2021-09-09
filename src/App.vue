@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <Menu v-bind:cart="cart" />
+    <Menu v-bind:cart="cart" @changeView="changeView" />
     <Products
       v-if="currentView === 'products'"
       v-bind:products="products"
       @updateCart="updateCart"
-      @goToDetailView="goToDetailView"
+      @changeView="changeView"
     />
     <Detail v-if="currentView === 'detail'" v-bind:product="product" />
-    <Cart v-bind:cart="cart" />
+    <Cart
+      v-if="currentView === 'cart'"
+      v-bind:cart="cart"
+      @increment="handleIncrement"
+      @decrement="handleDecrement"
+      @removeItem="removeFromCart"
+    />
     <Payment />
   </div>
 </template>
@@ -54,10 +60,23 @@ export default {
       }
       console.log('Cart: ', this.cart);
     },
-    goToDetailView(id) {
-      const product = this.products.find((p) => p.id === id);
-      this.product = product;
-      this.currentView = 'detail';
+    removeFromCart(id) {
+      this.cart = this.cart.filter((product) => product.id !== id);
+    },
+    changeView(view, id) {
+      if (view === 'detail') {
+        const product = this.products.find((p) => p.id === id);
+        this.product = product;
+      }
+      this.currentView = view;
+    },
+    handleIncrement(id) {
+      const product = this.cart.find((p) => p.id === id);
+      product.amount++;
+    },
+    handleDecrement(id) {
+      const product = this.cart.find((p) => p.id === id);
+      if (product.amount > 1) product.amount--;
     },
   },
   mounted() {
@@ -70,13 +89,13 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 * {
   box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
 }
 body {
   width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
 }
 #app {
   -webkit-font-smoothing: antialiased;

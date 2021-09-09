@@ -36,4 +36,16 @@ describe('Menu.vue', () => {
     const button = wrapper.find('div.cart-count');
     expect(button.text()).toBe('2');
   });
+  it('should emit to show the cart view when clicked', async () => {
+    const wrapper = shallowMount(Menu);
+    const button = wrapper.find('div.cart');
+    await button.trigger('click');
+    expect(wrapper.emitted().changeView).toBeTruthy();
+  });
+  it('should emit to show all products view when clicked', async () => {
+    const wrapper = shallowMount(Menu);
+    const button = wrapper.find('img');
+    await button.trigger('click');
+    expect(wrapper.emitted().changeView).toBeTruthy();
+  });
 });

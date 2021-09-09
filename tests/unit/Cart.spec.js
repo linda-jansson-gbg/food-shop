@@ -37,4 +37,14 @@ describe('Cart.vue', () => {
     const total = wrapper.find('span.total');
     expect(total.text()).toBe('1068 kr'); // 89*12
   });
+  it('should emit to remove an item when button is clicked', async () => {
+    const button = wrapper.find('button.remove');
+    await button.trigger('click');
+    expect(wrapper.emitted().removeItem).toBeTruthy();
+  });
+  it('should emit to return to products when button is clicked', async () => {
+    const button = wrapper.find('button');
+    await button.trigger('click');
+    expect(wrapper.emitted().changeView).toBeTruthy();
+  });
 });

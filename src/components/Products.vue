@@ -27,7 +27,7 @@ export default {
       this.$emit('updateCart', id);
     },
     goToDetailView(id) {
-      this.$emit('goToDetailView', id);
+      this.$emit('changeView', 'detail', id);
     },
   },
 };
@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .products {
-  margin: 1rem;
+  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;

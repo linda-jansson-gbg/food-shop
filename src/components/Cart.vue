@@ -1,5 +1,12 @@
 <template>
   <div>
+    <article class="header">
+      <button @click="$emit('changeView', 'products')">
+        <i class="material-icons">arrow_back</i>
+        Return to products
+      </button>
+      <h1>CART</h1>
+    </article>
     <ul>
       <li v-for="item in cart" :key="item.id">
         <div class="image">
@@ -9,7 +16,13 @@
           <span class="name">{{ item.name }}</span>
           <span class="price">{{ item.price }} kr</span>
         </div>
-        <Counter :count="item.amount" @decrement="handleDecrement(item.id)" @increment="handleIncrement(item.id)" />
+        <div class="counter">
+          <Counter :count="item.amount" @decrement="handleDecrement(item.id)" @increment="handleIncrement(item.id)" />
+          <button class="remove" @click="$emit('removeItem', item.id)">
+            <i class="material-icons">delete</i>
+            Remove
+          </button>
+        </div>
         <div class="total">
           <span>Totalt</span>
           <span class="total">{{ totalCost(item.price, item.amount) }}</span>
@@ -44,6 +57,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  margin: 0;
+}
 ul {
   list-style: none;
   padding: 1rem;
@@ -63,9 +79,38 @@ li {
     flex-direction: column;
     margin: 0 2rem;
   }
+  div.counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+      margin-top: 1rem;
+    }
+  }
 }
 li:not(:first-of-type) {
   margin-top: 1rem;
+}
+button {
+  display: flex;
+  align-items: center;
+  appearance: none;
+  outline: none;
+  background: none;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  i {
+    margin-right: 0.2rem;
+    color: #333;
+  }
+}
+article.header {
+  padding: 1rem 1rem 0 1rem;
+  display: flex;
+  align-items: center;
+  button {
+    margin-right: 2rem;
+  }
 }
 @media only screen and (max-width: 600px) {
   li {
@@ -75,8 +120,7 @@ li:not(:first-of-type) {
       justify-self: center;
       grid-column: 1 / 2;
     }
-    article {
-      justify-content: center;
+    div.counter {
       grid-row: 1 / 2;
       grid-column: 2 / 3;
     }

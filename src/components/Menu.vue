@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <img src="@/assets/logo.svg" alt="Logo" />
-    <div class="cart">
+    <img src="@/assets/logo.svg" alt="Logo" @click="$emit('changeView', 'products')" />
+    <div class="cart" @click="$emit('changeView', 'cart')">
       <i class="material-icons">shopping_cart</i>
       <div class="cart-count">{{ cartCount }}</div>
     </div>
@@ -32,6 +32,7 @@ div.main {
   height: 100px;
   img {
     max-height: 100%;
+    cursor: pointer;
   }
 }
 div.cart {
