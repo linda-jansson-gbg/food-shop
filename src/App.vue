@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Menu />
+    <Menu v-bind:cart="cart" />
     <Products v-bind:products="products" />
     <Detail />
-    <Cart />
+    <Cart v-bind:cart="cart" />
     <Payment />
   </div>
 </template>
@@ -57,6 +57,5 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 1rem;
 }
 </style>
