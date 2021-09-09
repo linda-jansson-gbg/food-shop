@@ -14,6 +14,7 @@
       @increment="handleIncrement"
       @decrement="handleDecrement"
       @removeItem="removeFromCart"
+      @changeView="changeView"
     />
     <Payment />
   </div>
