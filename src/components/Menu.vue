@@ -46,14 +46,16 @@ div.cart {
   }
   div {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    right: 0px;
-    top: 0;
+    width: 30px;
+    height: 30px;
+    right: -10px;
+    top: -10px;
+    line-height: 0;
     background-color: #f2f2f2;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

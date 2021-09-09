@@ -28,6 +28,7 @@
           <span class="total">{{ totalCost(item.price, item.amount) }}</span>
         </div>
       </li>
+      <li v-if="!cart.length" class="empty">Cart is empty</li>
     </ul>
   </div>
 </template>
@@ -90,6 +91,12 @@ li {
 }
 li:not(:first-of-type) {
   margin-top: 1rem;
+}
+li.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
 }
 button {
   display: flex;

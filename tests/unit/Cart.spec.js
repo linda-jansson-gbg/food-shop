@@ -47,4 +47,9 @@ describe('Cart.vue', () => {
     await button.trigger('click');
     expect(wrapper.emitted().changeView).toBeTruthy();
   });
+  it('should clearly show that the cart is empty', async () => {
+    await wrapper.setProps({ cart: [] });
+    const text = wrapper.find('li').text();
+    expect(text).toContain('Cart is empty');
+  });
 });
