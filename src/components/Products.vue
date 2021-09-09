@@ -1,6 +1,12 @@
 <template>
   <div class="products">
-    <Product v-for="(product, index) in products" :key="index" v-bind:product="product" @updateCart="updateCart" />
+    <Product
+      v-for="(product, index) in products"
+      :key="index"
+      v-bind:product="product"
+      @updateCart="updateCart"
+      @goToDetailView="goToDetailView"
+    />
   </div>
 </template>
 
@@ -19,7 +25,9 @@ export default {
   methods: {
     updateCart(id) {
       this.$emit('updateCart', id);
-      console.log('Products: ', id);
+    },
+    goToDetailView(id) {
+      this.$emit('goToDetailView', id);
     },
   },
 };

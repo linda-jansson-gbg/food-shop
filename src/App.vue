@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <Menu v-bind:cart="cart" />
-    <Products v-bind:products="products" @updateCart="updateCart" />
-    <Detail />
+    <Products
+      v-if="currentView === 'products'"
+      v-bind:products="products"
+      @updateCart="updateCart"
+      @goToDetailView="goToDetailView"
+    />
+    <Detail v-if="currentView === 'detail'" v-bind:product="product" />
     <Cart v-bind:cart="cart" />
     <Payment />
   </div>
@@ -28,6 +33,7 @@ export default {
       products: [],
       cart: [],
       currentView: 'products',
+      product: {},
     };
   },
   methods: {
@@ -40,7 +46,6 @@ export default {
     },
     updateCart(id) {
       const product = this.products.find((p) => p.id === id);
-      console.log(product);
       const exists = this.cart.find((p) => p.id === id);
       if (!exists) {
         this.cart.push({ ...product, amount: 1 });
@@ -48,6 +53,11 @@ export default {
         exists.amount++;
       }
       console.log('Cart: ', this.cart);
+    },
+    goToDetailView(id) {
+      const product = this.products.find((p) => p.id === id);
+      this.product = product;
+      this.currentView = 'detail';
     },
   },
   mounted() {

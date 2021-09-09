@@ -16,9 +16,14 @@ describe('Product.vue', () => {
     const title = wrapper.find('p');
     expect(title.text()).toBe('Chili');
   });
-  it('should emit an event to App.vue', async () => {
-    const button = wrapper.find('button');
+  it('should emit an event with id on product to Products.vue', async () => {
+    const button = wrapper.find('#addToCartButton');
     await button.trigger('click');
     expect(wrapper.emitted().updateCart).toBeTruthy();
+  });
+  it('should emit an event to change view to Products.vue', async () => {
+    const button = wrapper.find('#detailButton');
+    await button.trigger('click');
+    expect(wrapper.emitted().goToDetailView).toBeTruthy();
   });
 });
