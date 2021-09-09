@@ -1,6 +1,6 @@
 <template>
   <div class="products">
-    <Product v-for="(product, index) in products" :key="index" v-bind:product="product" />
+    <Product v-for="(product, index) in products" :key="index" v-bind:product="product" @updateCart="updateCart" />
   </div>
 </template>
 
@@ -15,6 +15,12 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    updateCart(id) {
+      this.$emit('updateCart', id);
+      console.log('Products: ', id);
+    },
   },
 };
 </script>

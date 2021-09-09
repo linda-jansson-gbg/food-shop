@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Menu v-bind:cart="cart" />
-    <Products v-bind:products="products" />
+    <Products v-bind:products="products" @updateCart="updateCart" />
     <Detail />
     <Cart v-bind:cart="cart" />
     <Payment />
@@ -27,6 +27,7 @@ export default {
     return {
       products: [],
       cart: [],
+      currentView: 'products',
     };
   },
   methods: {
@@ -37,6 +38,17 @@ export default {
         this.products = data.data;
       }
     },
+    updateCart(id) {
+      const product = this.products.find((p) => p.id === id);
+      console.log(product);
+      const exists = this.cart.find((p) => p.id === id);
+      if (!exists) {
+        this.cart.push({ ...product, amount: 1 });
+      } else {
+        exists.amount++;
+      }
+      console.log('Cart: ', this.cart);
+    },
   },
   mounted() {
     this.getData();
@@ -45,6 +57,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -53,6 +66,7 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  font-family: 'Raleway', sans-serif;
 }
 #app {
   -webkit-font-smoothing: antialiased;

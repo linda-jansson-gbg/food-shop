@@ -6,7 +6,7 @@
         <p>{{ product.name }}</p>
         <p>{{ product.price }} kr</p>
       </div>
-      <button @click="$emit('updateCart')"><i class="material-icons">shopping_cart</i></button>
+      <button @click="$emit('updateCart', product.id)"><i class="material-icons">shopping_cart</i></button>
       <span>{{ count }}</span>
     </footer>
   </article>
