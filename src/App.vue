@@ -1,17 +1,23 @@
 <template>
   <div id="app">
     <Menu v-bind:cart="cart" @changeView="changeView" />
+    <Search v-if="currentView === 'products'" @search="handleSearch" />
     <Products
       v-if="currentView === 'products'"
       v-bind:products="products"
+      v-bind:products="searchProducts"
       @updateCart="updateCart"
       @changeView="changeView"
+      @sort="handleSort"
+      v-bind:sort="sort"
     />
     <Detail
       v-if="currentView === 'detail'"
       v-bind:product="product"
       v-bind:cart="cart"
       @updateCartAndAmount="updateCartAndAmount"
+      @removeItem="removeFromCart"
+      @changeView="changeView"
     />
     <Cart
       v-if="currentView === 'cart'"
@@ -31,6 +37,7 @@ import Products from './components/Products.vue';
 import Detail from './components/Detail.vue';
 import Cart from './components/Cart.vue';
 import Payment from './components/Payment.vue';
+import Search from './components/Search.vue';
 
 export default {
   components: {
@@ -39,13 +46,16 @@ export default {
     Detail,
     Cart,
     Payment,
+    Search,
   },
   data() {
     return {
       products: [],
+      searchProducts: [],
       cart: [],
       currentView: 'products',
       product: {},
+      sort: 'name',
     };
   },
   methods: {
@@ -54,6 +64,7 @@ export default {
       const data = await response.json();
       if (data.success) {
         this.products = data.data;
+        this.searchProducts = [...this.products];
       }
     },
     updateCart(id) {
@@ -83,6 +94,10 @@ export default {
         const product = this.products.find((p) => p.id === id);
         this.product = product;
       }
+      if (view === 'products') {
+        this.searchProducts = this.products;
+        this.sortProducts();
+      }
       this.currentView = view;
     },
     handleIncrement(id) {
@@ -92,6 +107,26 @@ export default {
     handleDecrement(id) {
       const product = this.cart.find((p) => p.id === id);
       if (product.amount > 1) product.amount--;
+    },
+    handleSearch(input) {
+      const re = new RegExp(input, 'i');
+      this.searchProducts = this.products.filter((product) => product.name.match(re));
+      this.sortProducts();
+    },
+    handleSort() {
+      if (this.sort === 'name') {
+        this.sort = 'price';
+      } else {
+        this.sort = 'name';
+      }
+      this.sortProducts();
+    },
+    sortProducts() {
+      if (this.sort === 'name') {
+        this.searchProducts = this.searchProducts.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+      } else {
+        this.searchProducts = this.searchProducts.sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0));
+      }
     },
   },
   mounted() {
