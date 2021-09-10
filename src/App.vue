@@ -7,7 +7,12 @@
       @updateCart="updateCart"
       @changeView="changeView"
     />
-    <Detail v-if="currentView === 'detail'" v-bind:product="product" />
+    <Detail
+      v-if="currentView === 'detail'"
+      v-bind:product="product"
+      v-bind:cart="cart"
+      @updateCartAndAmount="updateCartAndAmount"
+    />
     <Cart
       v-if="currentView === 'cart'"
       v-bind:cart="cart"
@@ -59,7 +64,16 @@ export default {
       } else {
         exists.amount++;
       }
-      console.log('Cart: ', this.cart);
+    },
+    updateCartAndAmount(payload) {
+      const product = this.products.find((p) => p.id === payload.id);
+      const exists = this.cart.find((p) => p.id === payload.id);
+      if (!exists) {
+        this.cart.push({ ...product, amount: payload.amount });
+      } else {
+        exists.amount = payload.amount;
+      }
+      console.log(this.cart);
     },
     removeFromCart(id) {
       this.cart = this.cart.filter((product) => product.id !== id);

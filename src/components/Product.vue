@@ -1,12 +1,12 @@
 <template>
   <article>
-    <img :src="product.img" id="detailButton" @click="$emit('goToDetailView', product.id)" alt="" />
+    <img :src="product.img" class="detailButton" @click="$emit('goToDetailView', product.id)" alt="" />
     <footer>
       <div class="product-info">
         <p>{{ product.name }}</p>
         <p>{{ product.price }} kr</p>
       </div>
-      <button id="addToCartButton" @click="$emit('updateCart', product.id)">
+      <button class="addToCartButton" @click="$emit('updateCart', product.id)">
         <i class="material-icons">shopping_cart</i>
       </button>
     </footer>

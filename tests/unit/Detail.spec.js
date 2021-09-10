@@ -13,7 +13,7 @@ describe('Detail.vue', () => {
     },
   });
   it('should receive an object as props from App.vue', () => {
-    const title = wrapper.find('p');
+    const title = wrapper.find('h1');
     expect(title.text()).toBe('Chili');
   });
 });
