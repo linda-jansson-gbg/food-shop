@@ -150,4 +150,9 @@ describe('Products.vue', () => {
     const article = wrapper.findAll('article');
     expect(article.length).toBe(23);
   });
+  it('should emit an event to sort by price when clicking on the sorting button', async () => {
+    const button = wrapper.find('span.sort');
+    await button.trigger('click');
+    expect(wrapper.emitted().sort).toBeTruthy();
+  });
 });

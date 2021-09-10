@@ -33,6 +33,7 @@ article {
 }
 img {
   width: 100%;
+  cursor: pointer;
 }
 footer {
   display: flex;
@@ -42,17 +43,15 @@ footer {
 footer p {
   margin-bottom: 0;
 }
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 .material-icons {
   background-color: black;
   border-radius: 2rem;
   padding: 0.5rem;
   color: white;
-}
-button {
-  border: none;
-  background: none;
-}
-span {
-  display: none;
 }
 </style>

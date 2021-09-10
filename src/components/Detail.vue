@@ -1,15 +1,23 @@
 <template>
   <section>
+    <article class="header">
+      <button @click="$emit('changeView', 'products')">
+        <i class="material-icons">arrow_back</i>
+        Return to products
+      </button>
+      <h1>{{ product.name.toUpperCase() }}</h1>
+    </article>
     <article class="detail">
       <img :src="product.img" alt="" />
-      <h1>{{ product.name }}</h1>
+      <h1 class="title">{{ product.name }}</h1>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis quas sit eaque labore, sed quaerat? Lorem
+        ipsum dolor, sit amet consectetur adipisicing elit. Nobis iure iste, quod hic adipisci voluptates maxime ad
+        fugit fuga aliquid!
+      </p>
       <footer>
         <p>{{ product.price }} kr</p>
-        <Counter :count="amount" @decrement="decrement()" @increment="amount++" />
-        <!--<button class="addToCartButton" @click="$emit('updateCart', product.id, amount)">-->
-        <button class="addToCartButton" @click="updateCartAndAmount">
-          <i class="material-icons">shopping_cart</i>
-        </button>
+        <Counter :count="amount" @decrement="handleDecrement" @increment="handleIncrement" />
       </footer>
     </article>
   </section>
@@ -17,6 +25,7 @@
 
 <script>
 import Counter from './Counter.vue';
+
 export default {
   props: {
     product: Object,
@@ -37,12 +46,20 @@ export default {
         this.amount = product.amount;
       }
     },
-    decrement() {
-      if (this.amount > 0) {
+    handleDecrement() {
+      if (this.amount > 1) {
         this.amount--;
+        this.updateCart();
+      } else if (this.amount === 1) {
+        this.$emit('removeItem', this.product.id);
+        this.amount = 0;
       }
     },
-    updateCartAndAmount() {
+    handleIncrement() {
+      this.amount++;
+      this.updateCart();
+    },
+    updateCart() {
       const payload = {
         id: this.product.id,
         amount: this.amount,
@@ -50,6 +67,7 @@ export default {
       if (this.amount > 0) {
         this.$emit('updateCartAndAmount', payload);
       }
+      this.$emit('updateCartAndAmount', payload);
     },
   },
   created() {
@@ -65,9 +83,12 @@ section {
 article.detail {
   padding: 1rem;
   border: 1px solid #ccc;
+  display: grid;
 }
 img {
   width: 100%;
+  max-width: 400px;
+  justify-self: center;
 }
 footer {
   display: flex;
@@ -77,17 +98,29 @@ footer {
     margin: 0;
   }
 }
-.material-icons {
-  background-color: black;
-  border-radius: 2rem;
-  padding: 0.5rem;
-  color: white;
-}
 button {
   border: none;
+  display: flex;
+  align-items: center;
+  appearance: none;
+  outline: none;
   background: none;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  i {
+    margin-right: 0.2rem;
+    color: #333;
+  }
 }
-span {
-  display: none;
+article.header {
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  button {
+    margin-right: 2rem;
+  }
+  h1 {
+    margin: 0;
+  }
 }
 </style>

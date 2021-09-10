@@ -4,7 +4,6 @@
     <Search v-if="currentView === 'products'" @search="handleSearch" />
     <Products
       v-if="currentView === 'products'"
-      v-bind:products="products"
       v-bind:products="searchProducts"
       @updateCart="updateCart"
       @changeView="changeView"

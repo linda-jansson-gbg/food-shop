@@ -16,7 +16,9 @@ export default {
   computed: {
     cartCount() {
       if (!this.cart?.length) return 0;
-      return this.cart.length;
+      return this.cart.reduce((total, item) => {
+        return item.amount + total;
+      }, 0);
     },
   },
 };

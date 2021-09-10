@@ -1,13 +1,17 @@
+@@ -1,13 +1,16 @@
 <template>
-  <div class="products">
-    <Product
-      v-for="(product, index) in products"
-      :key="index"
-      v-bind:product="product"
-      @updateCart="updateCart"
-      @goToDetailView="goToDetailView"
-    />
-  </div>
+  <main>
+    <span class="sort" @click="$emit('sort')" v-html="sorting"></span>
+    <div class="products">
+      <Product
+        v-for="(product, index) in products"
+        :key="index"
+        v-bind:product="product"
+        @updateCart="updateCart"
+        @goToDetailView="goToDetailView"
+      />
+    </div>
+  </main>
 </template>
 
 <script>
@@ -15,6 +19,7 @@ import Product from './Product.vue';
 export default {
   props: {
     products: Array,
+    sort: String,
   },
   components: {
     Product,
@@ -30,6 +35,15 @@ export default {
       this.$emit('changeView', 'detail', id);
     },
   },
+  computed: {
+    sorting() {
+      if (this.sort === 'name') {
+        return 'Sort by: <u>name</u> / price';
+      } else {
+        return 'Sort by: name / <u>price</u>';
+      }
+    },
+  },
 };
 </script>
 
@@ -39,6 +53,11 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+}
+span.sort {
+  margin-left: 1rem;
+  cursor: pointer;
+  user-select: none;
 }
 @media only screen and (max-width: 1000px) {
   .products {

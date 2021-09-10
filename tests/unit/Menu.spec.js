@@ -34,7 +34,7 @@ describe('Menu.vue', () => {
       },
     });
     const button = wrapper.find('div.cart-count');
-    expect(button.text()).toBe('2');
+    expect(button.text()).toBe('15');
   });
   it('should emit to show the cart view when clicked', async () => {
     const wrapper = shallowMount(Menu);
