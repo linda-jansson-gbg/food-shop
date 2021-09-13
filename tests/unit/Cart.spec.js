@@ -52,4 +52,13 @@ describe('Cart.vue', () => {
     const text = wrapper.find('li').text();
     expect(text).toContain('Cart is empty');
   });
+  it('should show a button to proceed to payment', () => {
+    const button = wrapper.find('button.payment');
+    expect(button.exists()).toBeTruthy();
+  });
+  it('should only show the payment button if cart is not empty', async () => {
+    await wrapper.setProps({ cart: [] });
+    const button = wrapper.find('button.payment');
+    expect(button.exists()).toBeFalsy();
+  });
 });

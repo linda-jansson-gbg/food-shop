@@ -26,7 +26,7 @@
       @removeItem="removeFromCart"
       @changeView="changeView"
     />
-    <Payment />
+    <Payment v-if="currentView === 'payment'" v-bind:cart="cart" @changeView="changeView" />
   </div>
 </template>
 

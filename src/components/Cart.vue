@@ -24,12 +24,18 @@
           </button>
         </div>
         <div class="total">
-          <span>Totalt</span>
+          <span>Total</span>
           <span class="total">{{ totalCost(item.price, item.amount) }}</span>
         </div>
       </li>
       <li v-if="!cart.length" class="empty">Cart is empty</li>
     </ul>
+    <div class="payment">
+      <button v-if="cart.length" class="payment" @click="$emit('changeView', 'payment')">
+        <i class="material-icons">payments</i>
+        Proceed to checkout
+      </button>
+    </div>
   </div>
 </template>
 
@@ -118,6 +124,10 @@ article.header {
   button {
     margin-right: 2rem;
   }
+}
+div.payment {
+  display: flex;
+  justify-content: center;
 }
 @media only screen and (max-width: 600px) {
   li {
