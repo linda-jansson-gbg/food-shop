@@ -38,4 +38,15 @@ describe('Payment.vue', () => {
     await button.trigger('click');
     expect(wrapper.findAll('span.error').length).toEqual(4);
   });
+  it('should call the timeout if everything is correct', async () => {
+    jest.useFakeTimers();
+    const inputs = wrapper.findAll('input');
+    await inputs.at(0).setValue('James Smith');
+    await inputs.at(1).setValue('1234 1234 1234 1234');
+    await inputs.at(2).setValue('12/21');
+    await inputs.at(3).setValue('999');
+    const button = wrapper.find('button.pay');
+    await button.trigger('click');
+    expect(setTimeout).toHaveBeenCalled();
+  });
 });

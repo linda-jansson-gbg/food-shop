@@ -26,7 +26,7 @@
       @removeItem="removeFromCart"
       @changeView="changeView"
     />
-    <Payment v-if="currentView === 'payment'" v-bind:cart="cart" @changeView="changeView" />
+    <Payment v-if="currentView === 'payment'" v-bind:cart="cart" @changeView="changeView" @emptyCart="emptyCart" />
   </div>
 </template>
 
@@ -126,6 +126,9 @@ export default {
       } else {
         this.searchProducts = this.searchProducts.sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0));
       }
+    },
+    emptyCart() {
+      this.cart = [];
     },
   },
   mounted() {

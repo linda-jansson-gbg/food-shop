@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="!paymentComplete">
     <article class="header">
       <button @click="$emit('changeView', 'cart')">
         <i class="material-icons">arrow_back</i>
@@ -34,6 +34,20 @@
       </div>
     </article>
   </section>
+  <section class="complete" v-else>
+    <article v-if="loading">
+      <div class="spinner"></div>
+    </article>
+    <article v-else>
+      <i class="material-icons check">check_circle</i>
+      <span>Your transaction was successful.</span>
+      <span>Thank you for purchasing our fairly priced groceries.</span>
+      <button @click="$emit('changeView', 'products')">
+        <i class="material-icons">shopping_cart</i>
+        Shop more
+      </button>
+    </article>
+  </section>
 </template>
 
 <script>
@@ -61,6 +75,8 @@ export default {
         valid: false,
         verification: false,
       },
+      paymentComplete: false,
+      loading: true,
       mask: [],
       cardName: '',
       cardNumber: '',
@@ -74,6 +90,14 @@ export default {
       this.errors.number = this.cardNumber.length !== 19 ? true : false;
       this.errors.valid = this.cardValid.length !== 5 ? true : false;
       this.errors.verification = this.cardVerification.length !== 3 ? true : false;
+
+      if (Object.keys(this.errors).every((e) => this.errors[e] === false)) {
+        this.paymentComplete = true;
+        this.$emit('emptyCart');
+        setTimeout(() => {
+          this.loading = false;
+        }, 2000);
+      }
     },
   },
   mounted() {
@@ -146,9 +170,6 @@ button {
     color: #333;
   }
 }
-section {
-  height: 100%;
-}
 article.header {
   padding: 1rem 1rem 0 1rem;
   display: flex;
@@ -164,5 +185,38 @@ article.form {
 }
 h1 {
   margin: 0;
+}
+section.complete {
+  article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    i.check {
+      font-size: 3rem;
+      margin-top: 5rem;
+      margin-bottom: 2rem;
+      color: #4bb543;
+    }
+    button {
+      margin-top: 2rem;
+    }
+  }
+}
+.spinner {
+  margin-top: 5rem;
+  border: 8px solid #eee;
+  border-top: 8px solid #4bb543;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
