@@ -83,7 +83,6 @@ export default {
       } else {
         exists.amount = payload.amount;
       }
-      console.log(this.cart);
     },
     removeFromCart(id) {
       this.cart = this.cart.filter((product) => product.id !== id);
