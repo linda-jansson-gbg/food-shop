@@ -29,7 +29,8 @@ export default {
 <style lang="scss" scoped>
 div {
   background-color: #ccc;
-  position: relative;
+  position: sticky;
+  top: 100px;
   padding: 1rem;
   display: flex;
   margin-bottom: 1rem;
