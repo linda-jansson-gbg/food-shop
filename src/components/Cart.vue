@@ -30,6 +30,11 @@
       </li>
       <li v-if="!cart.length" class="empty">Cart is empty</li>
     </ul>
+    <div class="summary">
+      <span class="subtotal">SUBTOTAL: {{ subtotal }} kr</span><br />
+      <span class="taxes">Total taxes ({{ tax * 100 }}%): {{ taxes }} kr</span><br />
+      <span class="finalprice">Total: {{ total }} kr</span>
+    </div>
     <div class="payment">
       <button v-if="cart.length" class="payment" @click="$emit('changeView', 'payment')">
         <i class="material-icons">payments</i>
@@ -48,6 +53,24 @@ export default {
   },
   props: {
     cart: Array,
+  },
+  data() {
+    return {
+      tax: 0.12,
+    };
+  },
+  computed: {
+    subtotal() {
+      return this.total - this.taxes;
+    },
+    taxes() {
+      return Math.round(this.total * this.tax);
+    },
+    total() {
+      return this.cart.reduce((total, item) => {
+        return item.amount * item.price + total;
+      }, 0);
+    },
   },
   methods: {
     totalCost(price, amount) {
@@ -123,6 +146,16 @@ article.header {
   align-items: center;
   button {
     margin-right: 2rem;
+  }
+}
+div.summary {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  margin: 0 1rem 1rem;
+  padding: 1rem;
+  text-align: right;
+  span {
+    line-height: 1.5em;
   }
 }
 div.payment {

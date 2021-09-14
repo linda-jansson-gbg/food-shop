@@ -61,4 +61,16 @@ describe('Cart.vue', () => {
     const button = wrapper.find('button.payment');
     expect(button.exists()).toBeFalsy();
   });
+  it('should display the total taxes of the products', () => {
+    const taxes = wrapper.find('span.taxes');
+    expect(taxes.text()).toBe('Total taxes (12%): 136 kr');
+  });
+  it('should display the subtotal of the products', () => {
+    const subtotal = wrapper.find('span.subtotal');
+    expect(subtotal.text()).toBe('SUBTOTAL: 1001 kr');
+  });
+  it('should display the final price of the products', () => {
+    const final = wrapper.find('span.finalprice');
+    expect(final.text()).toBe('Total: 1137 kr');
+  });
 });
