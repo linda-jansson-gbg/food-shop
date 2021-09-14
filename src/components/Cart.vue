@@ -128,6 +128,7 @@ article.header {
 div.payment {
   display: flex;
   justify-content: center;
+  padding-bottom: 2rem;
 }
 @media only screen and (max-width: 600px) {
   li {

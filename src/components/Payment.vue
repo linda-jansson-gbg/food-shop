@@ -102,7 +102,7 @@ export default {
   },
   mounted() {
     /* Allow max 25 characters with spaces in v-mask on cardName */
-    this.mask = Array(25).fill(/[A-Za-z ]/);
+    this.mask = Array(25).fill(/[A-Za-zåäöÅÄÖ ]/);
   },
 };
 </script>
