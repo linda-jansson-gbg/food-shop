@@ -10,7 +10,7 @@
     <ul>
       <li v-for="item in cart" :key="item.id">
         <div class="image">
-          <img :src="item.img" alt="" />
+          <img :src="item.img" alt="" @click="$emit('changeView', 'detail', item.id)" />
         </div>
         <div class="info">
           <span class="name">{{ item.name }}</span>
@@ -102,6 +102,7 @@ li {
   grid-template-columns: min-content 1fr min-content max-content;
   img {
     max-height: 150px;
+    cursor: pointer;
   }
   div.info,
   div.total {
