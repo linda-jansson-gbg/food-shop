@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <img src="@/assets/logo.svg" alt="Logo" @click="$emit('changeView', 'products')" />
+    <h1>food shop</h1>
     <div class="cart" @click="$emit('changeView', 'cart')">
       <i class="material-icons">shopping_cart</i>
       <div class="cart-count">{{ cartCount }}</div>
@@ -25,6 +26,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+h1 {
+  font-family: 'Italiana', sans-serif;
+  color: white;
+}
 div.main {
   background-color: #020203;
   padding: 1rem;
@@ -32,6 +38,8 @@ div.main {
   justify-content: space-between;
   align-items: center;
   height: 100px;
+  position: sticky;
+  top: 0;
   img {
     max-height: 100%;
     cursor: pointer;
