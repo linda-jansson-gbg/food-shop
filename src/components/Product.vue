@@ -18,11 +18,6 @@ export default {
   props: {
     product: Object,
   },
-  data() {
-    return {
-      count: 0,
-    };
-  },
 };
 </script>
 
